@@ -1,5 +1,3 @@
-from logging import disable
-from re import S
 from flask import Flask, render_template
 
 app = Flask(__name__)
