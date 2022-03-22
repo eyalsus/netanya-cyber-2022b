@@ -14,7 +14,19 @@ def hello_world():
 
 @app.route("/welcome", methods=["POST"])
 def welcome():
-    return "Welcome"
+    is_authenticated = False
+    username = request.form.get('username')
+    password = request.form.get('password')
+    conn = engine.connect()
+    df = pd.read_sql(f"""
+        SELECT * 
+        FROM users
+        WHERE user_name = '{username}'
+        AND password = '{password}'
+    """, conn)
+    if len(df) > 0:
+        is_authenticated = True
+    return render_template('welcome.html', first_name=df.iloc[0].first_name)
 
 @app.route("/add-user", methods=["POST"])
 def add_user():
@@ -45,4 +57,4 @@ def example():
     return "This is an example!"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080 ,debug=True)
