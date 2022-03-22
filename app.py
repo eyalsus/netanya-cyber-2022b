@@ -28,6 +28,22 @@ def welcome():
         is_authenticated = True
     return render_template('welcome.html', first_name=df.iloc[0].first_name)
 
+@app.route("/welcome-safe", methods=["POST"])
+def welcome_safe():
+    is_authenticated = False
+    username = request.form.get('username')
+    password = request.form.get('password')
+    conn = engine.connect()
+    df = pd.read_sql(f"""
+        SELECT * 
+        FROM users
+        WHERE user_name = :username
+        AND password = :password
+    """, conn, params={'username': username, 'password': password})
+    if len(df) > 0:
+        is_authenticated = True
+    return render_template('welcome.html', first_name=df.iloc[0].first_name)
+
 @app.route("/add-user", methods=["POST"])
 def add_user():
     firstname = request.form.get('firstname')
