@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html dir="rtl" lang="he"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Tomer Azran - tomer.azran@edp.co.il">
+    <meta name="generator" content="Tomer Azran - tomer.azran@edp.co.il">
+    <title tranlation_key="PAGE_TITLE">הזדהות מאובטחת</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="./netanya_complete_files/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    <link rel="icon" href="https://login.netanya.ac.il/nidp/netanya/images/cropped-Logonetania-32x32.png" sizes="32x32">    
+    <link rel="apple-touch-icon-precomposed" href="https://login.netanya.ac.il/nidp/netanya/images/cropped-Logonetania-32x32.png">
+    <meta name="msapplication-TileImage" content="/nidp/netanya/images/cropped-Logonetania-32x32.png">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='all.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='flag-icon.min.css')}}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div id="logoImage" class="text-center">
+        <img class="img-fluid" src="{{url_for('static', filename='cropped-32866_logo_new_slogen_biz23_239x125.png')}}" alt="" width="239" height="125">
+    </div>
+
+    <div id="topCommonDiv" class="container narrowDiv text-center">
+        <div id="errorMessageAlert" class="alert alert-danger alert-dismissible fade show" style="display:none" role="alert">
+            <span id="errMsg"></span>
+        </div>
+    </div>
+
+    <div id="usernamePasswordForm" class="container narrowDiv" style="">
+
+        <div id="usernamePasswordFormDiv">
+
+            <div class="form-label-group">
+                <input type="text" id="Ecom_User_ID" class="form-control" placeholder="Username" required="" autofocus="">
+                <label for="Ecom_User_ID" translation_key="USERNAME_LABEL">מספר זהות</label>
+            </div>
+
+            
+                
+                       
+                
+                
+                    
+                       
+                
+            
+
+
+            <button id="loginButton" class="btn btn-lg btn-outline-primary btn-block" type="submit" translation_key="LOGIN_BUTTON_TEXT">שלח</button>
+            <button id="loadingButton" class="btn btn-lg btn-outline-primary btn-block" style="display: none" type="button">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+        </div>
+
+    </div>
+    <div class="container-fluid" style="display:none" id="secondFactorDiv">
+        <h3 id="securityCodeChoiceTitle" class="text-center mb-4" translation_key="SECOND_FACTOR_CHOOSE_QUESTION">בחר/י אמצעי זיהוי</h3>
+        <div class="card-deck">
+            <!-- LDAP Password -->
+            <div id="ldapPasswordCard" style="display:none" class="card loginMethodCard text-center" enabled="true">
+                <a id="ldapPasswordCardClick">
+                    <div class="loginMethodCardIcon text-center mb-4 card-img-top">
+                        <i class="fas fa-asterisk fa-5x"></i>
+                    </div>
+                    <div id="ldapPasswordCardBody" class="card-body">
+                        <div id="ldapPasswordCardInstructions">
+                            <h5 class="card-title" translation_key="LDAP_CARD_TITLE_TEXT">סיסמה</h5>
+                            <p class="card-text" translation_key="LDAP_CARD_TEXT">הזדהות באמצעות הסיסמה שלך</p>
+                        </div>
+                        <div id="ldapPasswordInputDiv" style="display: none">
+                            <p class="lead"><span translation_key="LDAP_INSTRUCTIONS_TEXT">יש להזין את הסיסמה הארגונית שלך. אם הסיסמה לא ברשותך, ניתן ללחוץ <a href="https://login.netanya.ac.il/nidp/saml2/sso?id=loa2&amp;sid=1&amp;option=credential&amp;sid=1#" onclick="onPasswordChangeLinkClicked()">כאן</a> כדי לאפס אותה.</span>
+                            </p><center>
+                                <div class="codeInputDiv">
+                                    <div class="form-label-group">
+                                        <input type="password" title="Password" id="ldapPassword" autocomplete="password" class="form-control" placeholder="Password" required="">
+                                        <label for="ldapPassword" translation_key="LDAP_PASSWORD_LABEL">סיסמה</label>
+                                        <small id="ldapPasswordError" class="form-text text-muted" style="display: none">
+                                            <span id="ldapPasswordErrorMsg" class="formInputError"></span>
+                                        </small>
+                                        <input type="password" style="display:none;">
+                                    </div>
+                                    <button id="ldapPasswordLoginButton" class="btn btn-lg btn-outline-primary btn-block" type="submit" translation_key="LDAP_PASSWORD_SUBMIT_BUTTON_TEXT">בדוק סיסמה</button>
+                                    <button id="ldapPasswordLoginLoadingButton" class="btn btn-lg btn-outline-primary btn-block" style="display: none" type="button">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- SMS OTP -->
+            <div id="smsOTPCard" style="display:none" class="card loginMethodCard text-center" enabled="true">
+                <a id="smsCardClick">
+                    <div class="loginMethodCardIcon text-center mb-4 card-img-top">
+                        <i class="fas fa-sms fa-5x"></i>
+                    </div>
+                    <div id="smsCardBody" class="card-body">
+                        <div id="smsCardInstructions">
+                            <h5 class="card-title" translation_key="SMS_CARD_TITLE_TEXT">מסרון</h5>
+                            <p class="card-text" translation_key="SMS_CARD_TEXT">קבלת מסרון עם קוד חד פעמי באמצעות מסרון לטלפון הנייד</p>
+                        </div>
+                        <div id="smsSendLoading" style="display: none;">
+                            <p class="lead" translation_key="SMS_SENDING_TEXT">נא להמתין</p>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </div>
+                        <div id="smsOtpInputDiv" style="display: none">
+                            <p class="lead">
+                                <span translation_key="SMS_INPUT_INSTRUCTIONS_TEXT1">נשלח אליך קוד חד פעמי לטלפון </span>
+                                <span id="smsDestMasked"></span>
+                                <br>
+                                <span translation_key="SMS_INPUT_INSTRUCTIONS_TEXT2">יש להזין את הקוד וללחוץ בדוק קוד</span>
+                            </p>
+                            <center>
+                                <div class="codeInputDiv">
+                                    <div class="form-label-group">
+                                        <input type="tel" autocomplete="one-time-code" title="SMS OTP" id="smsOtp" class="form-control" placeholder="Code" required="">
+                                        <label for="smsOtp" translation_key="SMS_INPUT_LABEL">קוד</label>
+                                        <small id="smsOtpError" class="form-text text-muted" style="display: none">
+                                            <span id="smsOtpErrorMsg" class="formInputError"></span>
+                                        </small>
+                                    </div>
+                                    <button id="smsLoginButton" class="btn btn-lg btn-outline-primary btn-block" type="submit" translation_key="SMS_OTP_CHECK_BUTTON_TEXT">בדוק קוד</button>
+                                    <button id="smsLoginLoadingButton" class="btn btn-lg btn-outline-primary btn-block" style="display: none" type="button">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- EMAIL -->
+            <div id="emailOTPCard" style="display:none" class="card loginMethodCard text-center" enabled="true">
+                <a id="emailCardClick">
+                    <div class="loginMethodCardIcon text-center mb-4 card-img-top">
+                        <i class="fas fa-at fa-5x"></i>
+                    </div>
+                    <div id="emailCardBody" class="card-body">
+                        <div id="emailCardInstructions">
+                            <h5 class="card-title" translation_key="EMAIL_CARD_TITLE_TEXT">דואר אלקטרוני</h5>
+                            <p class="card-text" translation_key="EMAIL_CARD_TEXT">קבלת מסרון עם קוד חד פעמי באמצעות דואר אלקטרוני</p>
+                        </div>
+                        <div id="emailSendLoading" style="display: none;">
+                            <p class="lead" translation_key="EMAIL_SENDING_TEXT">נא להמתין</p>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </div>
+                        <div id="emailOtpInputDiv" style="display: none">
+                            <p class="lead">
+                                <span translation_key="EMAIL_INPUT_INSTRUCTIONS_TEXT1">נשלח אליך קוד חד פעמי לכתובת הדואר </span>
+                                <span id="emailDestMasked"></span>
+                                <br>
+                                <span translation_key="EMAIL_INPUT_INSTRUCTIONS_TEXT2">יש להזין את הקוד וללחוץ בדוק קוד</span>
+                            </p>
+                            <center>
+                                <div class="codeInputDiv">
+                                    <div class="form-label-group">
+                                        <input type="tel" autocomplete="one-time-code" title="EMAIL OTP" id="emailOtp" class="form-control" placeholder="Code" required="">
+                                        <label for="emailOtp" translation_key="EMAIL_INPUT_LABEL">קוד</label>
+                                        <small id="emailOtpError" class="form-text text-muted" style="display: none">
+                                            <span id="emailOtpErrorMsg" class="formInputError"></span>
+                                        </small>
+                                    </div>
+                                    <button id="emailLoginButton" class="btn btn-lg btn-outline-primary btn-block" type="submit" translation_key="EMAIL_OTP_CHECK_BUTTON_TEXT">בדוק קוד</button>
+                                    <button id="emailLoginLoadingButton" class="btn btn-lg btn-outline-primary btn-block" style="display: none" type="button">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- END EMAIL -->
+            <div id="smartphoneOTPCard" style="display:none" class="card loginMethodCard text-center" enabled="true">
+                <a id="smartphoneCardClick">
+                    <div class="loginMethodCardIcon text-center mb-4 card-img-top">
+                        <i class="fas fa-mobile-alt fa-5x"></i>
+                    </div>
+                    <div id="smartphoneCardBody" class="card-body">
+                        <div id="smartphoneCardInstructions">
+                            <h5 class="card-title" translation_key="SMARTPHONE_CARD_TITLE_TEXT">טלפון חכם</h5>
+                            <p class="card-text" translation_key="SMARTPHONE_CARD_TEXT">אישור ההזדהות באמצעות יישומון (אפליקציה)</p>
+                        </div>
+                        <div id="smartphonePushDiv" class="card-body" style="display: none">
+                            <h5 class="card-title" translation_key="SMARTPHONE_CARD_TITLE_TEXT">טלפון חכם</h5>
+                            <p class="card-text" translation_key="SMARTPHONE_PUSH_INSTRUCTIONS_TEXT">יש לאשר את ההזדהות ביישומון (אפליקציה)</p>
+                            <div id="smartphonePushSpinner" class="text-center">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            </div>
+                            <button id="smartphoneOfflineAuthButton" class="btn btn-lg btn-outline-primary btn-block" type="button" translation_key="SMARTPHONE_CHOOSE_MANUAL_INSTRUCTIONS_BUTTON_TEXT">לא קיבלתי את הקוד</button>
+                        </div>
+                        <div id="smartphoneOtpInputDiv" class="container-fluid" style="display: none">
+                            <p class="lead"><span translation_key="SMARTPHONE_MANUAL_INSTRUCTIONS">יש להזין את הקוד המופיע במסך היישומון (אפליקציה):</span>
+                            </p><center>
+                                <div class="codeInputDiv">
+                                    <div class="form-label-group">
+                                        <input type="text" title="Smartphone OTP" id="smartphoneOtp" autocomplete="one-time-code" class="form-control" placeholder="Code" required="">
+                                        <label for="smartphoneOtp" translation_key="SMARTPHONE_CODE_INPUT_LABEL">קוד</label>
+                                        <small id="smartphoneOtpError" class="form-text text-muted" style="display: none">
+                                            <span id="smartphoneOtpErrorMsg" class="formInputError"></span>
+                                        </small>
+                                    </div>
+                                    <button id="smartphoneLoginButton" class="btn btn-lg btn-outline-primary btn-block" type="submit" translation_key="SMARTPHONE_CHECK_CODE_BUTTON_TEXT">בדוק קוד</button>
+                                    <button id="smartphoneLoginLoadingButton" class="btn btn-lg btn-outline-primary btn-block" style="display: none" type="button">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div id="emergencyPasswordCard" style="display:none" class="card loginMethodCard text-center" enabled="true">
+                <a id="emergencyPasswordCardClick">
+                    <div class="loginMethodCardIcon text-center mb-4 card-img-top">
+                        <i class="fas fa-headset fa-5x"></i>
+                    </div>
+                    <div id="emergencyPasswordCardBody" class="card-body">
+                        <div id="emergencyPasswordCardInstructions">
+                            <h5 class="card-title" translation_key="HELPDESK_CARD_TITLE_TEXT">קוד מוקד תמיכה</h5>
+                            <p class="card-text" translation_key="HELPDESK_CARD_TEXT">שימוש בקוד שקיבלתי ממוקד התמיכה</p>
+                        </div>
+                        <div id="emergencyPasswordInputDiv" style="display: none">
+                            <p class="lead"><span translation_key="HELPDESK_INSTRUCTIONS_TEXT">יש להזין את הקוד שהתקבל ממוקד התמיכה:</span>
+                            </p><center>
+                                <div class="codeInputDiv">
+                                    <div class="form-label-group">
+                                        <input type="password" title="Helpdesk Code" id="helpdeskOtp" autocomplete="one-time-code" class="form-control" placeholder="Code" required="">
+                                        <label for="helpdeskOtp" translation_key="HELPDESK_CODE_LABEL">קוד</label>
+                                        <small id="helpdeskOtpError" class="form-text text-muted" style="display: none">
+                                            <span id="helpdeskOtpErrorMsg" class="formInputError"></span>
+                                        </small>
+                                        <input type="password" style="display:none;">
+                                    </div>
+                                    <button id="helpdeskLoginButton" class="btn btn-lg btn-outline-primary btn-block" type="submit" translation_key="HELPDESK_CHECK_CODE_BUTTON_TEXT">בדוק קוד</button>
+                                    <button id="helpdeskLoginLoadingButton" class="btn btn-lg btn-outline-primary btn-block" style="display: none" type="button">
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+	
+    </div>
+
+
+    <div id="langChooseMenu" class="dropdown text-center">
+        <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span translation_key="CURRENT_LANG_NAME">עברית</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(521px, 31px, 0px);">
+            <button class="dropdown-item text-right langChooseOption" type="button" lang_code="he" href="#"> עברית <span class="flag-icon flag-icon-il"></span></button>
+            <button class="dropdown-item text-left langChooseOption" type="button" lang_code="en" href="#">English <span class="flag-icon flag-icon-us"></span></button>
+        </div>
+    </div>
+    
+    <form id="IDPLogin" name="IDPLogin" enctype="application/x-www-form-urlencoded" method="POST" action="https://login.netanya.ac.il/nidp/saml2/sso?sid=1&amp;sid=1" autocomplete="off" class="form-signin">
+        <input type="hidden" name="option" value="credential">
+        <input type="hidden" name="isAjax" value="false">
+        <input id="authType" type="hidden" name="authType">
+        <div id="recaptcha-container" style="" class="g-recaptcha" data-size="invisible"><div class="grecaptcha-badge" data-style="bottomleft" style="width: 256px; height: 60px; display: block; transition: left 0.3s ease 0s; position: fixed; bottom: 14px; left: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe title="reCAPTCHA" src="./netanya_complete_files/anchor.html" width="256" height="60" role="presentation" name="a-7chp07dnm6fq" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;" src="./netanya_complete_files/saved_resource(1).html"></iframe></div>
+    </form>	
+			
+	<footer class="footer">
+      <p class="mt-5 mb-3 text-muted text-center">© <a href="https://www.edp.co.il/" target="_blank">POWERED BY EDP GROUP</a> <span id="copyRightYear">2022</span></p>
+    </footer>
+
+</div>
+
+<!-- JQuery -->
+<script type="text/javascript" async="" src="./netanya_complete_files/recaptcha__iw.js" crossorigin="anonymous" integrity="sha384-a3Vxc117NL/BjKSYRt+GioSTNvIvP4oyeKjNhYmrzac3ZG14OMbx1+KGDPQaSSJN"></script><script type="text/javascript" src="./netanya_complete_files/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="./netanya_complete_files/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="./netanya_complete_files/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+
+    serverUrl = 'https://login.netanya.ac.il/nidp/saml2/sso?sid=1&sid=1';
+    // $(function(){
+    //     $('.selectpicker').selectpicker();
+    // });
+
+    function errorCodeToErrorMessage(errCode) {
+        var err = errCode;
+        switch (errCode) {
+            case "WRONG_USERNAME_OR_PASSWORD":
+                err = curLangTranslations.ERROR_WRONG_USERNAME_OR_PASSWORD;
+                break;
+            case "CAPTCHA_MISSING":
+                err = curLangTranslations.ERROR_CAPTCHA_MISSING;
+                break;
+            case "WRONG_CAPTCHA":
+                err = curLangTranslations.ERROR_WRONG_CAPTCHA;
+                break;
+            case "INVALID_INPUT":
+                err = curLangTranslations.ERROR_INVALID_INPUT;
+                break;
+            case "WRONG_TOKEN":
+                err = curLangTranslations.ERROR_WRONG_TOKEN;
+                break;
+            case "WRONG_TOTP":
+                err = curLangTranslations.ERROR_WRONG_TOTP;
+                break;
+            case "WRONG_PASSWORD":
+                err = curLangTranslations.ERROR_WRONG_PASSWORD;
+                break;
+            case "INTRUDER_DETECTED":
+                err = curLangTranslations.ERROR_INTRUDER_DETECTED;
+                break;
+            case "SYSTEM_ERROR":
+                err = curLangTranslations.ERROR_SYSTEM_ERROR;
+                break;
+            case "INVALID_CREDENTIALS":
+                err = curLangTranslations.ERROR_INVALID_CREDENTIALS;
+                break;
+            case "USER_NOT_FOUND":
+                err = curLangTranslations.ERROR_USER_NOT_FOUND;
+                break;
+            case "MISSING_OTP_TARGET":
+                err = curLangTranslations.ERROR_MISSING_OTP_TARGET;
+                break;
+        }
+        return err;
+    }
+
+    _shouldSolveCaptcha = true;
+    PARM_USERID = "Ecom_User_ID";
+    PARM_PASSWORD = "Ecom_Password";
+    ERROR_INVALID_INPUT = "INVALID_INPUT";
+    SMS_OTP_CLASS = "OTPAuthClass";
+    EMAIL_OTP_CLASS = "EmailAuthClass";
+    SMARTPHONE_CLASS = "SmartphoneAuthClass";
+    EMERGENCY_PASSWORD_CLASS = "EmergencyPasswordAuthClass";
+    LDAP_PASSWORD_CLASS = "BasicLoginClass";
+    OTP_REQUEST_PARAM = "otp";
+    PASSWORD_REQUEST_PARAM = "Ecom_Password";
+    ERROR_INTRUDER_DETECTED = "INTRUDER_DETECTED";
+    ERROR_INVALID_INPUT = "INVALID_INPUT";
+    ERROR_AUTH_TYPE_NOT_FOUND = "AUTH_TYPE_NOT_FOUND";
+    ERROR_LOGON_IN_PROGRESS = "LOGON_IN_PROGRESS";
+    ERROR_USER_NOT_FOUND = "USER_NOT_FOUND";
+
+</script>
+
+<script type="text/javascript" src="./netanya_complete_files/login.js"></script>
+
+<script type="text/javascript" src="./netanya_complete_files/translations.js"></script>
+
+
+<!-- Need to change the hl to iw if hebrew -->
+<script src="./netanya_complete_files/api.js"></script>
+
+
+
+<div style="visibility: hidden; position: absolute; width: 100%; top: -10000px; left: 0px; right: 0px; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 0;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.5;"></div><div style="margin: 0px auto; top: 0px; left: 0px; right: 0px; position: absolute; border: 1px solid rgb(204, 204, 204); z-index: 2000000000; background-color: rgb(255, 255, 255); overflow: hidden;"><iframe title="התוקף של אתגר reCAPTCHA יפוג בעוד שתי דקות" src="./netanya_complete_files/bframe.html" name="c-7chp07dnm6fq" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox" style="width: 100%; height: 100%;"></iframe></div></div></body></html>

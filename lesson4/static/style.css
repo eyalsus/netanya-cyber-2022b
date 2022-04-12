@@ -1,0 +1,235 @@
+html,
+body {
+  height: 100%;
+  color: #263746;
+}
+
+.form-control:focus {        
+    box-shadow: 0 0 0 0.2rem #ffd7d7 !important;	
+	border-color: #ffd7d7;
+}
+
+.systemUserCheckboxParts:hover{
+    color: #229ef4;
+    cursor: pointer;
+}
+
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.codeInputDiv{
+    max-width: 300px;
+}
+
+#logoImage{
+    margin-bottom: 40px;
+}
+
+#langChooseMenu{
+    margin-top: 40px;
+}
+
+#emailDestMasked, #smsDestMasked, .formInputError{
+    color: #c71e4f !important;
+}
+
+#emailDestMasked{
+	direction: ltr;
+	unicode-bidi: bidi-override;
+}
+
+.btn-outline-primary {
+    color: #263746 !important;
+    border-color: #263746 !important;
+}
+
+#smartphonePushSpinner{
+    margin-bottom: 15px;
+}
+
+
+.btn-outline-primary:hover {
+    color: #fff !important;
+    background-color: #263746 !important;
+    border-color: #263746 !important;
+}
+
+.loginMethodCardIcon{
+  margin-top: 10px
+}
+
+.loginMethodCard{
+    background-clip: border-box;
+    border: 2px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: 2px 0;
+    max-width: 505px;
+    width:100%;
+}
+
+.loginMethodCard[enabled=false]{
+    color: rgba(0,0,0,.125);
+    display: none;
+}
+
+.loginMethodCard[active=true]{
+    position: relative;
+    margin: auto;
+}
+
+#enrollmentSiteLink{
+    margin-top: 30px;
+    margin-bottom: -20px !important;
+}
+
+.loginMethodCard:hover[enabled=true]{
+    border-color: #263746;
+    cursor: pointer;
+}
+
+.narrowDiv{
+    max-width: 450px;
+    width: 100%;
+}
+
+#usernamePasswordForm{
+    padding: 15px;
+    margin: 0 auto;
+}
+
+#forgottenPasswordLink{
+  margin-top: 5px;
+}
+
+html[dir=rtl] #forgottenPasswordLink{
+    text-align: right;
+}
+
+.alert{
+  white-space: nowrap;
+}
+
+body {
+  /*display: -ms-flexbox;*/
+  /*display: flex;*/
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 5%;
+  padding-bottom: 40px;
+}
+@media only screen and (max-width: 600px) {
+    body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 420px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+  height: 3.125rem;
+  padding: .75rem;
+}
+
+.form-label-group > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  margin-bottom: 0; /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  pointer-events: none;
+  cursor: text; /* Match the input under the label */
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+}
+
+html[dir=rtl] .form-label-group > label {
+    text-align: right;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: 1.25rem;
+  padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+  font-size: 12px;
+  color: #777;
+}
+
+/* Fallback for Edge
+-------------------------------------------------- */
+@supports (-ms-ime-align: auto) {
+  .form-label-group > label {
+    display: none;
+  }
+  .form-label-group input::-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+/* Fallback for IE
+-------------------------------------------------- */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .form-label-group > label {
+    display: none;
+  }
+  .form-label-group input:-ms-input-placeholder {
+    color: #777;
+  }
+}
+
+
+#errMsg{
+    white-space: normal;
+}
+
+#errorMessageAlert{
+    padding: 10px 10px;
+}
+
+.loginMethodCardIcon {
+	color: #e3181c !important;
+}
+
+#securityCodeChoiceTitle{
+	padding-bottom: 40px;
+}
