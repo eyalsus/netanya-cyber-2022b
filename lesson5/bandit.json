@@ -1,0 +1,402 @@
+{
+  "errors": [],
+  "generated_at": "2022-04-26T15:42:25Z",
+  "metrics": {
+    "/Users/eyal/netanya/netanya-cyber-2022b/lesson1/app.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 1.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 1.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 38,
+      "nosec": 0
+    },
+    "/Users/eyal/netanya/netanya-cyber-2022b/lesson2/app.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 2.0,
+      "CONFIDENCE.MEDIUM": 2.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 1.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 3.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 65,
+      "nosec": 0
+    },
+    "/Users/eyal/netanya/netanya-cyber-2022b/lesson3/app.py": {
+      "CONFIDENCE.HIGH": 1.0,
+      "CONFIDENCE.LOW": 2.0,
+      "CONFIDENCE.MEDIUM": 2.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 2.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 3.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 82,
+      "nosec": 0
+    },
+    "/Users/eyal/netanya/netanya-cyber-2022b/lesson3/brute_bot.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 12,
+      "nosec": 0
+    },
+    "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py": {
+      "CONFIDENCE.HIGH": 5.0,
+      "CONFIDENCE.LOW": 2.0,
+      "CONFIDENCE.MEDIUM": 2.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 2.0,
+      "SEVERITY.LOW": 4.0,
+      "SEVERITY.MEDIUM": 3.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 95,
+      "nosec": 0
+    },
+    "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/brute_bot.py": {
+      "CONFIDENCE.HIGH": 0.0,
+      "CONFIDENCE.LOW": 0.0,
+      "CONFIDENCE.MEDIUM": 0.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 0.0,
+      "SEVERITY.LOW": 0.0,
+      "SEVERITY.MEDIUM": 0.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 12,
+      "nosec": 0
+    },
+    "_totals": {
+      "CONFIDENCE.HIGH": 6.0,
+      "CONFIDENCE.LOW": 6.0,
+      "CONFIDENCE.MEDIUM": 7.0,
+      "CONFIDENCE.UNDEFINED": 0.0,
+      "SEVERITY.HIGH": 6.0,
+      "SEVERITY.LOW": 4.0,
+      "SEVERITY.MEDIUM": 9.0,
+      "SEVERITY.UNDEFINED": 0.0,
+      "loc": 304,
+      "nosec": 0
+    }
+  },
+  "results": [
+    {
+      "code": "47 if __name__ == '__main__':\n48     app.run(debug=True)\n",
+      "col_offset": 4,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson1/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 48,
+      "line_range": [
+        48
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "20     conn = engine.connect()\n21     df = pd.read_sql(f\"\"\"\n22         SELECT * \n23         FROM users\n24         WHERE user_name = '{username}'\n25         AND password = '{password}'\n26     \"\"\", conn)\n",
+      "col_offset": 21,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson2/app.py",
+      "issue_confidence": "LOW",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 21,
+      "line_range": [
+        21,
+        22,
+        23,
+        24,
+        25
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "36     conn = engine.connect()\n37     df = pd.read_sql(f\"\"\"\n38         SELECT * \n39         FROM users\n40         WHERE user_name = :username\n41         AND password = :password\n42     \"\"\", conn, params={'username': username, 'password': password})\n",
+      "col_offset": 21,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson2/app.py",
+      "issue_confidence": "LOW",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 37,
+      "line_range": [
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "75 if __name__ == '__main__':\n76     app.run(host='0.0.0.0', port=8080 ,debug=True)\n",
+      "col_offset": 4,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson2/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 76,
+      "line_range": [
+        76
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "75 if __name__ == '__main__':\n76     app.run(host='0.0.0.0', port=8080 ,debug=True)\n",
+      "col_offset": 17,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson2/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible binding to all interfaces.",
+      "line_number": 76,
+      "line_range": [
+        76
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b104_hardcoded_bind_all_interfaces.html",
+      "test_id": "B104",
+      "test_name": "hardcoded_bind_all_interfaces"
+    },
+    {
+      "code": "22     conn = engine.connect()\n23     df = pd.read_sql(f\"\"\"\n24         SELECT * \n25         FROM users\n26         WHERE user_name = '{username}'\n27         AND password = '{password}'\n28     \"\"\", conn)\n",
+      "col_offset": 21,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson3/app.py",
+      "issue_confidence": "LOW",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 23,
+      "line_range": [
+        23,
+        24,
+        25,
+        26,
+        27
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "41     conn = engine.connect()\n42     df = pd.read_sql(f\"\"\"\n43         SELECT * \n44         FROM users\n45         WHERE user_name = :username\n46         AND password = :password\n47     \"\"\", conn, params={'username': username, 'password': password})\n",
+      "col_offset": 21,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson3/app.py",
+      "issue_confidence": "LOW",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 42,
+      "line_range": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "50         image_path = f'{df.iloc[0].first_name}-{df.iloc[0].last_name}.webp'\n51         ls_result = os.popen(f'ls -lrt /Users/eyal/netanya/netanya-cyber-2022b/lesson3/static/{image_path}').read()\n52         if image_path in ls_result:\n",
+      "col_offset": 20,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson3/app.py",
+      "issue_confidence": "HIGH",
+      "issue_severity": "HIGH",
+      "issue_text": "Starting a process with a shell, possible injection detected, security issue.",
+      "line_number": 51,
+      "line_range": [
+        51
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b605_start_process_with_a_shell.html",
+      "test_id": "B605",
+      "test_name": "start_process_with_a_shell"
+    },
+    {
+      "code": "91 if __name__ == '__main__':\n92     app.run(host='0.0.0.0', port=8080 ,debug=True)\n",
+      "col_offset": 4,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson3/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 92,
+      "line_range": [
+        92
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "91 if __name__ == '__main__':\n92     app.run(host='0.0.0.0', port=8080 ,debug=True)\n",
+      "col_offset": 17,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson3/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible binding to all interfaces.",
+      "line_number": 92,
+      "line_range": [
+        92
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b104_hardcoded_bind_all_interfaces.html",
+      "test_id": "B104",
+      "test_name": "hardcoded_bind_all_interfaces"
+    },
+    {
+      "code": "1 import os\n2 import subprocess\n3 from flask import Flask, render_template, request\n",
+      "col_offset": 0,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "HIGH",
+      "issue_severity": "LOW",
+      "issue_text": "Consider possible security implications associated with the subprocess module.",
+      "line_number": 2,
+      "line_range": [
+        2
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/blacklists/blacklist_imports.html#b404-import-subprocess",
+      "test_id": "B404",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "27     conn = engine.connect()\n28     df = pd.read_sql(f\"\"\"\n29         SELECT * \n30         FROM users\n31         WHERE user_name = '{username}'\n32         AND password = '{password}'\n33     \"\"\", conn)\n",
+      "col_offset": 21,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "LOW",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 28,
+      "line_range": [
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "36         image_path = f'{df.iloc[0].first_name}-{df.iloc[0].last_name}.webp'\n37         ls_result = os.popen(f'ls -lrt /Users/eyal/netanya/netanya-cyber-2022b/lesson3/static/{image_path}').read()\n38         if image_path in ls_result:\n",
+      "col_offset": 20,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "HIGH",
+      "issue_severity": "HIGH",
+      "issue_text": "Starting a process with a shell, possible injection detected, security issue.",
+      "line_number": 37,
+      "line_range": [
+        37
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b605_start_process_with_a_shell.html",
+      "test_id": "B605",
+      "test_name": "start_process_with_a_shell"
+    },
+    {
+      "code": "51     conn = engine.connect()\n52     df = pd.read_sql(f\"\"\"\n53         SELECT * \n54         FROM users\n55         WHERE user_name = :username\n56         AND password = :password\n57     \"\"\", conn, params={'username': username, 'password': password})\n",
+      "col_offset": 21,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "LOW",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible SQL injection vector through string-based query construction.",
+      "line_number": 52,
+      "line_range": [
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b608_hardcoded_sql_expressions.html",
+      "test_id": "B608",
+      "test_name": "hardcoded_sql_expressions"
+    },
+    {
+      "code": "64         try:\n65             ls_result = subprocess.check_output(['ls', '-lrt', f'/Users/eyal/netanya/netanya-cyber-2022b/lesson3/static/{image_path}'], shell=False).decode(\"utf-8\")\n66         except Exception:\n",
+      "col_offset": 24,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "HIGH",
+      "issue_severity": "LOW",
+      "issue_text": "Starting a process with a partial executable path",
+      "line_number": 65,
+      "line_range": [
+        65
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b607_start_process_with_partial_path.html",
+      "test_id": "B607",
+      "test_name": "start_process_with_partial_path"
+    },
+    {
+      "code": "64         try:\n65             ls_result = subprocess.check_output(['ls', '-lrt', f'/Users/eyal/netanya/netanya-cyber-2022b/lesson3/static/{image_path}'], shell=False).decode(\"utf-8\")\n66         except Exception:\n",
+      "col_offset": 24,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "HIGH",
+      "issue_severity": "LOW",
+      "issue_text": "subprocess call - check for execution of untrusted input.",
+      "line_number": 65,
+      "line_range": [
+        65
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b603_subprocess_without_shell_equals_true.html",
+      "test_id": "B603",
+      "test_name": "subprocess_without_shell_equals_true"
+    },
+    {
+      "code": "65             ls_result = subprocess.check_output(['ls', '-lrt', f'/Users/eyal/netanya/netanya-cyber-2022b/lesson3/static/{image_path}'], shell=False).decode(\"utf-8\")\n66         except Exception:\n67             pass\n68         if image_path in ls_result:\n",
+      "col_offset": 8,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "HIGH",
+      "issue_severity": "LOW",
+      "issue_text": "Try, Except, Pass detected.",
+      "line_number": 66,
+      "line_range": [
+        66,
+        67
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b110_try_except_pass.html",
+      "test_id": "B110",
+      "test_name": "try_except_pass"
+    },
+    {
+      "code": "107 if __name__ == '__main__':\n108     app.run(host='0.0.0.0', port=80 ,debug=True)\n",
+      "col_offset": 4,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "HIGH",
+      "issue_text": "A Flask app appears to be run with debug=True, which exposes the Werkzeug debugger and allows the execution of arbitrary code.",
+      "line_number": 108,
+      "line_range": [
+        108
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b201_flask_debug_true.html",
+      "test_id": "B201",
+      "test_name": "flask_debug_true"
+    },
+    {
+      "code": "107 if __name__ == '__main__':\n108     app.run(host='0.0.0.0', port=80 ,debug=True)\n",
+      "col_offset": 17,
+      "filename": "/Users/eyal/netanya/netanya-cyber-2022b/lesson4/app.py",
+      "issue_confidence": "MEDIUM",
+      "issue_severity": "MEDIUM",
+      "issue_text": "Possible binding to all interfaces.",
+      "line_number": 108,
+      "line_range": [
+        108
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/latest/plugins/b104_hardcoded_bind_all_interfaces.html",
+      "test_id": "B104",
+      "test_name": "hardcoded_bind_all_interfaces"
+    }
+  ]
+}
