@@ -1,8 +1,13 @@
+import hashlib
 import os
+import random
+import string
 import subprocess
 from flask import Flask, render_template, request, make_response, redirect, url_for
 from sqlalchemy import create_engine
 import pandas as pd
+
+SALT = ''.join(random.choice(string.ascii_lowercase) for i in range(32))
 
 app = Flask(__name__, static_folder='static')
 engine = create_engine('sqlite:///users.db')
@@ -48,6 +53,7 @@ def welcome_safe():
         return '<h1>You have been banned!</h1>'
     is_authenticated = False
     if request.method == 'GET':
+        print(request.cookies)
         return render_template('welcome.html',
          first_name=request.cookies['first_name'],
          image_path=request.cookies['image_path'])
@@ -80,7 +86,7 @@ def welcome_safe():
             sso = request.form.get('sso')
             if sso:
                 print('setting the cookie')
-                resp.set_cookie('sso', value="1")
+                resp.set_cookie('sso', value=get_hashed_sso_token(username, SALT))
                 resp.set_cookie('username', value=username)
                 resp.set_cookie('first_name', value=df.iloc[0].first_name)
                 resp.set_cookie('image_path', value=image_path)
@@ -121,13 +127,19 @@ def register():
 
 @app.route("/login")
 def login():
-    if 'sso' in request.cookies:
+    if 'sso' in request.cookies and 'username' in request.cookies \
+        and get_hashed_sso_token(request.cookies['username'], SALT) == request.cookies['sso']:
         return redirect(url_for('welcome_safe'))
     return render_template('login.html')
 
 @app.route("/example")
 def example():
     return "This is an example!"
+
+def get_hashed_sso_token(text, salt):
+    m = hashlib.sha256()
+    m.update((text + salt).encode())
+    return m.hexdigest()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80 ,debug=True)
